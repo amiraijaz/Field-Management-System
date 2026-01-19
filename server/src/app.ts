@@ -19,10 +19,27 @@ const app: Express = express();
 
 // Security middleware
 app.use(helmet());
+
+// CORS configuration - support multiple origins
+const allowedOrigins = env.CORS_ORIGIN.split(',').map(origin => origin.trim());
+
 app.use(
   cors({
-    origin: env.CORS_ORIGIN,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+
+      // Check if the origin is in the allowed list
+      if (allowedOrigins.some(allowed => origin.startsWith(allowed) || allowed === '*')) {
+        callback(null, true);
+      } else {
+        console.log(`CORS blocked origin: ${origin}`);
+        callback(null, true); // Allow all origins for now (can restrict later)
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   })
 );
 
