@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: fieldmgmt_db
+    environment:
+      POSTGRES_DB: fieldmgmt
+      POSTGRES_USER: fieldmgmt
+      POSTGRES_PASSWORD: fieldmgmt123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fieldmgmt"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build: ./server
+    container_name: fieldmgmt_server
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      DATABASE_URL: postgresql://fieldmgmt:fieldmgmt123@db:5432/fieldmgmt
+      JWT_SECRET: field-management-jwt-secret-dev-2024
+      JWT_ACCESS_EXPIRY: 15m
+      JWT_REFRESH_EXPIRY: 7d
+      CORS_ORIGIN: http://localhost:3000
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./server/uploads:/app/uploads
+
+  client:
+    build: ./client
+    container_name: fieldmgmt_client
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000/api
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:

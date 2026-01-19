@@ -1,0 +1,119 @@
+fsm-saas/
+├── client/                 # Next.js frontend (later)
+│   └── ...
+│
+├── server/                 # Node.js backend
+│   ├── src/
+│   │   ├── config/
+│   │   │   ├── db.js
+│   │   │   ├── socket.js
+│   │   │   └── env.js
+│   │   │
+│   │   ├── middlewares/
+│   │   │   ├── auth.middleware.js
+│   │   │   ├── tenant.middleware.js
+│   │   │   ├── role.middleware.js
+│   │   │   └── error.middleware.js
+│   │   │
+│   │   ├── modules/
+│   │   │   ├── auth/
+│   │   │   │   ├── auth.controller.js
+│   │   │   │   ├── auth.service.js
+│   │   │   │   ├── auth.routes.js
+│   │   │   │   └── auth.validation.js
+│   │   │   │
+│   │   │   ├── tenants/
+│   │   │   │   ├── tenant.controller.js
+│   │   │   │   ├── tenant.service.js
+│   │   │   │   └── tenant.routes.js
+│   │   │   │
+│   │   │   ├── users/
+│   │   │   │   ├── user.controller.js
+│   │   │   │   ├── user.service.js
+│   │   │   │   └── user.routes.js
+│   │   │   │
+│   │   │   ├── jobs/
+│   │   │   │   ├── job.controller.js
+│   │   │   │   ├── job.service.js
+│   │   │   │   ├── job.routes.js
+│   │   │   │   └── job.validation.js
+│   │   │   │
+│   │   │   ├── customers/
+│   │   │   │   ├── customer.controller.js
+│   │   │   │   ├── customer.service.js
+│   │   │   │   └── customer.routes.js
+│   │   │   │
+│   │   │   ├── equipment/
+│   │   │   │   ├── equipment.controller.js
+│   │   │   │   ├── equipment.service.js
+│   │   │   │   └── equipment.routes.js
+│   │   │   │
+│   │   │   ├── workers/
+│   │   │   │   ├── worker.controller.js
+│   │   │   │   ├── worker.service.js
+│   │   │   │   └── worker.routes.js
+│   │   │   │
+│   │   │   ├── tasks/
+│   │   │   │   ├── task.controller.js
+│   │   │   │   ├── task.service.js
+│   │   │   │   └── task.routes.js
+│   │   │   │
+│   │   │   ├── work-orders/
+│   │   │   │   ├── workOrder.controller.js
+│   │   │   │   ├── workOrder.service.js
+│   │   │   │   └── workOrder.routes.js
+│   │   │   │
+│   │   │   ├── attachments/
+│   │   │   │   ├── attachment.controller.js
+│   │   │   │   ├── attachment.service.js
+│   │   │   │   └── attachment.routes.js
+│   │   │   │
+│   │   │   ├── signatures/
+│   │   │   │   ├── signature.controller.js
+│   │   │   │   ├── signature.service.js
+│   │   │   │   └── signature.routes.js
+│   │   │   │
+│   │   │   ├── notifications/
+│   │   │   │   ├── notification.controller.js
+│   │   │   │   ├── notification.service.js
+│   │   │   │   └── notification.routes.js
+│   │   │   │
+│   │   │   └── job-statuses/
+│   │   │       ├── jobStatus.controller.js
+│   │   │       ├── jobStatus.service.js
+│   │   │       └── jobStatus.routes.js
+│   │   │
+│   │   ├── database/
+│   │   │   ├── migrations/
+│   │   │   │   └── 001_initial_schema.sql
+│   │   │   ├── seeds/
+│   │   │   │   └── default_statuses.sql
+│   │   │   └── queries/
+│   │   │       ├── jobs.queries.js
+│   │   │       ├── customers.queries.js
+│   │   │       └── ...
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── jwt.js
+│   │   │   ├── password.js
+│   │   │   ├── response.js
+│   │   │   ├── pagination.js
+│   │   │   └── ticketGenerator.js
+│   │   │
+│   │   ├── socket/
+│   │   │   ├── index.js
+│   │   │   ├── handlers/
+│   │   │   │   ├── job.handler.js
+│   │   │   │   └── notification.handler.js
+│   │   │   └── rooms.js
+│   │   │
+│   │   ├── app.js
+│   │   └── server.js
+│   │
+│   ├── uploads/              # Local file storage (MVP)
+│   ├── .env
+│   ├── .env.example
+│   ├── package.json
+│   └── README.md
+│
+└── README.md

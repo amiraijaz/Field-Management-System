@@ -1,0 +1,392 @@
+🎯 PHASE 1 GOAL
+
+Build a stable MVP proving:
+
+Multi-tenant architecture
+
+Job lifecycle (create → assign → complete)
+
+Role-based access control
+
+Persistent, auditable data storage
+
+🧱 TECH STACK (STRICT)
+
+Backend: Flask (Python)
+
+Auth: JWT (access + refresh tokens)
+
+Database: PostgreSQL
+
+ORM: SQLAlchemy
+
+Migrations: Flask-Migrate (Alembic)
+
+Frontend: React.js (Vite or CRA)
+
+Styling: Tailwind or basic CSS
+
+Deployment-ready: Dockerized backend
+
+1️⃣ PLATFORM FOUNDATION
+Backend Architecture
+
+Design a multi-tenant SaaS backend with:
+
+company_id enforced on every data model
+
+Middleware or decorators ensuring:
+
+Users can only access their company’s data
+
+Configurable environments:
+
+development
+
+staging
+
+production
+
+Configuration via environment variables:
+
+DATABASE_URL
+
+JWT_SECRET
+
+FLASK_ENV
+
+Docker
+
+Dockerfile for Flask backend
+
+PostgreSQL via docker-compose
+
+Proper volume handling for DB persistence
+
+2️⃣ AUTHENTICATION & AUTHORIZATION
+Authentication
+
+Implement:
+
+Admin-only user registration
+
+Login / logout endpoints
+
+JWT-based authentication
+
+Token expiration & refresh logic
+
+Roles
+
+Support exactly these roles:
+
+ADMIN
+
+WORKER
+
+CUSTOMER
+
+Authorization Rules
+
+Admin:
+
+Full access within company
+
+Worker:
+
+Only assigned jobs
+
+Customer:
+
+Read-only access to their jobs
+
+Enforce company isolation at query level
+
+3️⃣ CORE DATABASE MODELS
+Required Models (Minimum)
+Company
+
+id (UUID)
+
+name
+
+created_at
+
+updated_at
+
+is_active
+
+User
+
+id (UUID)
+
+company_id (FK)
+
+name
+
+email (unique per company)
+
+password_hash
+
+role (ENUM)
+
+created_at
+
+updated_at
+
+is_deleted (soft delete)
+
+Customer
+
+id (UUID)
+
+company_id (FK)
+
+name
+
+email
+
+phone
+
+created_at
+
+updated_at
+
+is_deleted
+
+Job
+
+id (UUID)
+
+company_id (FK)
+
+customer_id (FK)
+
+assigned_worker_id (FK)
+
+title
+
+description
+
+status_id (FK)
+
+created_at
+
+updated_at
+
+is_archived
+
+JobStatus
+
+id (UUID)
+
+company_id (FK)
+
+name
+
+order_index
+
+created_at
+
+updated_at
+
+JobTask
+
+id (UUID)
+
+job_id (FK)
+
+title
+
+is_completed
+
+created_at
+
+updated_at
+
+Requirements
+
+UUID primary keys
+
+Soft delete support
+
+Timestamps on every model
+
+Proper indexing for performance
+
+4️⃣ ADMIN DASHBOARD (REACT)
+Admin Capabilities
+
+Admin users must be able to:
+
+Create / edit / archive jobs
+
+Create & manage customers
+
+Assign jobs to workers
+
+Create custom job statuses
+
+View job list:
+
+Filter by status
+
+Search by title or customer
+
+View job details:
+
+Tasks
+
+Notes (text only)
+
+Frontend Requirements
+
+React.js
+
+Mobile-responsive layout
+
+Pages:
+
+Login
+
+Jobs list
+
+Job details
+
+Create/edit job
+
+Customers list
+
+Job statuses management
+
+Clean navigation (sidebar or top bar)
+
+Form validation
+
+5️⃣ FIELD WORKER APP (BASIC)
+Worker Capabilities
+
+Workers can:
+
+Login
+
+View assigned jobs only
+
+View job details
+
+Update job status
+
+Mark tasks as complete
+
+UI Constraints
+
+Mobile-first design
+
+Large buttons
+
+Minimal screens
+
+Fast loading
+
+6️⃣ CUSTOMER JOB VIEW (READ-ONLY)
+Customer Capabilities
+
+Customers can:
+
+Access job via:
+
+Secure login OR
+
+Secure tokenized link
+
+View:
+
+Job title
+
+Status
+
+Description
+
+Assigned worker (name only)
+
+Tasks (read-only)
+
+Restrictions
+
+No edits
+
+No task completion
+
+No admin access
+
+🔌 REQUIRED API ENDPOINTS (MINIMUM)
+
+/auth/login
+
+/auth/logout
+
+/users (admin only)
+
+/customers
+
+/jobs
+
+/jobs/{id}
+
+/job-statuses
+
+/job-tasks
+
+/workers/assigned-jobs
+
+Each endpoint must:
+
+Validate JWT
+
+Enforce role & company isolation
+
+🧪 PHASE 1 EXIT CRITERIA (MUST PASS)
+
+✔ Admin can create jobs, assign workers, and define statuses
+✔ Worker can complete assigned jobs
+✔ Customer can view job details
+✔ No user can see another company’s data
+✔ Data persists correctly in PostgreSQL
+✔ System works end-to-end without AI or messaging
+
+📦 DELIVERABLES
+
+Produce:
+
+Backend folder structure
+
+Database schema (SQLAlchemy)
+
+Flask API routes
+
+React page structure
+
+Authentication & authorization logic
+
+Docker setup
+
+README explaining how to run locally
+
+🚫 OUT OF SCOPE (DO NOT IMPLEMENT)
+
+Messaging
+
+AI features
+
+Payments
+
+Notifications
+
+File uploads
+
+GPS tracking
+
+✅ FINAL INSTRUCTION
+
+Build this step-by-step, prioritizing clarity, correctness, and production readiness.
+Assume this system will later evolve into a full SaaS product.

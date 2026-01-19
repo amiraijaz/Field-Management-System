@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables (sensitive)
+.env
+.env.local
+.env.production
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+
+# Uploads (if any)
+uploads/
