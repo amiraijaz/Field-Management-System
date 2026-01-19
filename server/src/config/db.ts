@@ -1,14 +1,20 @@
 import { Pool } from 'pg';
 import { env } from './env';
 
+// Configure SSL for production (Render requires SSL)
+const sslConfig = env.NODE_ENV === 'production'
+    ? { rejectUnauthorized: false }
+    : false;
+
 export const pool = new Pool({
     connectionString: env.DATABASE_URL,
     max: 20,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    connectionTimeoutMillis: 10000,
+    ssl: sslConfig,
 });
 
-pool.on('error', (err) => {
+pool.on('error', (err: Error) => {
     console.error('Unexpected error on idle client', err);
     process.exit(-1);
 });
